@@ -193,3 +193,94 @@ body {
   border-radius: 15px;
   background: #fff;
 }
+
+@media screen and (max-width: 480px) {
+  
+  .landing-title {
+    font-size: 1rem;
+  }
+
+  .landing-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .get-started-btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .logos-top {
+    padding: 1rem;
+  }
+
+  .team-row img {
+    width: 50px !important;
+    height: 40px !important;
+  }
+
+  .landing-content {
+    padding: 2rem 1rem;
+    margin: 1rem;
+  }
+
+  .main-container {
+    padding: 1rem;
+  }
+
+  .input-group {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .input-field {
+    min-width: 100%;
+  }
+
+  .text-search-container {
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .text-search-input {
+    font-size: 1rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .search-btn {
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .players-results {
+    padding: 0.6rem;
+    font-size: 0.85rem;
+    max-height: 250px;
+    overflow-y: auto;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #fff;
+    text-align: center;
+  }
+
+  .players-results ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .players-results li {
+    font-size: 0.82rem;
+    margin-bottom: 0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .error-message {
+    font-size: 0.9rem;
+  }
+}

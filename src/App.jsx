@@ -164,7 +164,7 @@ function MainPage() {
     if (team) params.append('team', team);
     if (position) params.append('position', position);
 
-    fetch(`/api/v1/player?${params.toString()}`)
+    fetch(`https://ultimatestats-2.onrender.com/api/v1/player?${params.toString()}`)
       .then((res) => {
         if (!res.ok) throw new Error(`Network response was not ok: ${res.statusText}`);
         return res.json();
