@@ -3,7 +3,7 @@ package com.pl.UltimateStats.player;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "player_stats")
+@Table(name = "players")
 public class Player {
     @Id
     @Column(name = "player", unique = true)
