@@ -1,11 +1,19 @@
 package com.pl.UltimateStats.player;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "api/v1/player")
@@ -20,19 +28,18 @@ public class PlayerController {
 
     @GetMapping
     public List<Player> getPlayers(
-            @RequestParam(required = false) String team,
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String position,
-            @RequestParam(required = false) String nation) {
-
+            @RequestParam(required = false) String nation,
+            @RequestParam(required = false) String pos,
+            @RequestParam(required = false) Integer teamId
+    ) {
         return playerService.getPlayers().stream()
                 .filter(p -> name == null || p.getName().toLowerCase().contains(name.toLowerCase()))
                 .filter(p -> nation == null || (p.getNation() != null && p.getNation().toUpperCase().contains(nation.toUpperCase())))
-                .filter(p -> team == null || p.getTeam().toLowerCase().contains(team.toLowerCase()))
-                .filter(p -> position == null || (p.getPos() != null && p.getPos().toUpperCase().contains(position.toUpperCase())))
+                .filter(p -> pos == null || (p.getPos() != null && p.getPos().toUpperCase().contains(pos.toUpperCase())))
+                .filter(p -> teamId == null || (p.getTeamId() != null && p.getTeamId().equals(teamId)))
                 .toList();
     }
-
 
     @PostMapping
     public ResponseEntity<Player> addPlayer(@RequestBody Player player) {
@@ -42,17 +49,15 @@ public class PlayerController {
 
     @PutMapping
     public ResponseEntity<Player> updatePlayer(@RequestBody Player updatedPlayer) {
-        Player resultPlayer = playerService.updatePlayer(updatedPlayer);
-        if (resultPlayer != null) {
-            return new ResponseEntity<>(resultPlayer, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Player result = playerService.updatePlayer(updatedPlayer);
+        return result != null
+                ? new ResponseEntity<>(result, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/{playerName}")
-    public ResponseEntity<String> deletePlayer(@PathVariable String playerName) {
-        playerService.deletePlayer(playerName);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePlayer(@PathVariable Long id) {
+        playerService.deletePlayer(id);
         return new ResponseEntity<>("Player deleted successfully", HttpStatus.OK);
     }
 }
