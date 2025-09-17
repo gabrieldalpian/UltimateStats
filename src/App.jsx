@@ -257,11 +257,15 @@ function MainPage() {
           {!error && !loading && players.length === 0 && <p>No players found</p>}
           {!error && players.length > 0 && (
             <ul>
-              {players.map((player, i) => (
-                <li key={player.name || i}>
-                  <strong>{player.name.charAt(0).toUpperCase() + player.name.slice(1)}</strong> — {player.nation} — {player.team} — {player.pos}
-                </li>
-              ))}
+              {players.map((player, i) => {
+                // Fallback for missing or empty team name
+                const teamName = player.team && player.team.trim() !== '' ? player.team : 'Unknown Team';
+                return (
+                  <li key={player.name || i}>
+                    <strong>{player.name.charAt(0).toUpperCase() + player.name.slice(1)}</strong> — {player.nation} — {teamName} — {player.pos}
+                  </li>
+                );
+              })}
             </ul>
           )}
         </div>
